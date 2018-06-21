@@ -1,0 +1,65 @@
+Rules of the game:
+
+The goal of the game is to merge numbers together in order to reach the 2048 tile.
+
+It is a 4*4 arena with 16 squared slots.
+
+At the begining of the game we start with two tiles.
+
+When we combine two tiles with the same number they merge into new on with a number that is the sum of the constituent numbers.
+
+Best strategy to win at 2048 is to employ the corner method.
+
+Any new number can appear in the game be it 2, 4 and so on. ( From observation a 2 or 4 can pop up in the game.);
+
+We will make three versions of the product.
+
+Version 0.1 : A cli version of the game.
+Version 0.2 : A front end version of the game.
+Version 0.3 : A version of the game using jQuery.
+
+Requirements:
+version 0.1 : cli version of the 2048 game.(Game Logic)
+
+1. A command line interface for playing the game.(visual interface)
+2. A data-structure to store the states of the game.
+3. Color coding of each block of the game.
+4. Game logic. (To move the tiles and keep tab of the score.)
+
+version 0.2: Game front end.
+
+1. Visual aspect of the game in html and css.
+2. Animations for the game.
+3. Integrate it with the game logic.
+
+version 0.3: Implementation in jQuery.
+
+1. Implement the front-end and animations in jQuery as well.
+2. Integrate it with backend logic.
+
+
+Version 0.1 task breakdown:
+
+1. Logic that handles the game logic.
+	I. Moving the numbers in all the four directions
+	II. Mergin two tiles.
+	III. Creation of new tiles.
+	IV. Storing the game state.
+	V. Storing the high score.
+	VI. Indicating when the game is over.
+2. Displaying the game states.
+3. color coding of game states.
+
+Version 0.2 task breakdown:
+
+1. code for displaying elements.
+2. code for animations.
+3. Code for alerts like pop ups, game overs etc.
+4. Integration of front end with game logic in version 0.1.
+
+Version 0.3 task breakdown:
+
+1. code for displaying elements.
+2. code for animations.
+3. Code for alerts like pop ups, game overs etc.
+4. Integration of front end with game logic in version 0.1.

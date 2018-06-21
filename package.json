@@ -1,0 +1,19 @@
+{
+  "name": "2048_cli",
+  "version": "0.0.1",
+  "description": "A command line version of 2048",
+  "main": "gamelogic.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akhilmurali/2048_cli.git"
+  },
+  "author": "Akhil Murali <github@akhilmurali.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akhilmurali/2048_cli/issues"
+  },
+  "homepage": "https://github.com/akhilmurali/2048_cli#readme"
+}
