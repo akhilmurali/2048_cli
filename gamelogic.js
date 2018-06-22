@@ -22,7 +22,7 @@ function initializeGameStates() {
 	}
 }
 
-//Detect empty st ates and initialize a state to the value {2} at empty spaces:
+//Detect empty states and initialize a state to the value {2} at empty spaces:
 //PSEUDO CODE FOR THE FUNCTION:
 //1.PUSH ALL THE POSITIONS WHERE VALUE OF GAME-STATES IS ZERO INTO AN ARRAY
 //2.RANDOMLY SELECT AN INDEX OF THIS ARRAY AND POPULATE IT WITH THE VALUE{2} 
@@ -66,26 +66,52 @@ function detectFilledStates(gameStateArray) {
 function alterStates(gameStateArray, key) {
 	var positionArray = detectFilledStates(gameStateArray);
 	var position_x = positionArray[0];
-	var position_y = positionArray[1];	
-	positionArray.forEach(function (element) {
-		switch(key){
+	var position_y = positionArray[1];
+	positionArray.forEach(function (position) {
+		switch (key) {
 			case "left":
-				gameStateArray = moveLeft(gameStateArray, element);
+				gameStateArray = moveLeft(gameStateArray, position);
 				break;
 			case "right":
-				gameStateArray = moveRight(gameStateArray, element);
+				gameStateArray = moveRight(gameStateArray, position);
 				break;
 			case "up":
-				gameStateArray = moveup(gameStateArray, element);
+				gameStateArray = moveUp(gameStateArray, position);
 				break;
 			case "down":
-				gameStateArray = movedown(gameStateArray, element);
+				gameStateArray = moveDown(gameStateArray, position);
 				break;
 			default:
-				break;				
+				break;
 		}
 	});
 	return gameStateArray;
 }
 
-module.exports = { addTileToArena, initializeGameStates, gameState, detectFilledStates }
+//Move the tile at a given position to its left position depending on the states to its left:
+//f{moveLeft}:
+function moveLeft(gameStateArray, position) {
+	console.log(gameStateArray);
+	var pos_x = position[0];
+	var pos_y = position[1];
+	var flagArray = [];
+	for (var i = (position[1] - 1); i >= 0; --i) {
+		if (gameStateArray[pos_x][pos_y-1] == 0) {
+			gameStateArray[pos_x][i] = gameStateArray[pos_x][pos_y];
+			gameStateArray[pos_x][pos_y] = 0;
+		} else if (gameStateArray[pos_x][pos_y-1] == gameStateArray[pos_x][pos_y]) {
+			if (flagArray.indexOf([pos_x, pos_y-1]) == -1) {
+				gameStateArray[pos_x][pos_y-1] *= 2;
+				gameStateArray[pos_x][pos_y] = 0;
+				flagArray.push([pos_x, pos_y-1]);
+			}	
+		}else{
+			break;
+		}
+		pos_y = pos_y-1;
+	}
+	return gameStateArray;
+}
+
+module.exports= {moveLeft,addTileToArena}; //{ addTileToArena, initializeGameStates, gameState, detectFilledStates, moveLeft };
+
