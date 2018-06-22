@@ -137,5 +137,55 @@ function moveUp(gameStateArray, position){
 	return gameStateArray;
 }
 
-module.exports= {moveLeft,addTileToArena}; //{ addTileToArena, initializeGameStates, gameState, detectFilledStates, moveLeft };
+
+//Move the tile at a given position to right position depending on the states at its right:
+//f{moveRight}:
+function moveRight(gameStateArray, position) {
+	var pos_x = position[0];
+	var pos_y = position[1];
+	var flagArray = [];
+	for (var i = (position[1] + 1); i < 4; ++i) {
+		if (gameStateArray[pos_x][pos_y+1] == 0) {
+			gameStateArray[pos_x][i] = gameStateArray[pos_x][pos_y];
+			gameStateArray[pos_x][pos_y] = 0;
+		} else if (gameStateArray[pos_x][pos_y+1] == gameStateArray[pos_x][pos_y]) {
+			if (flagArray.indexOf([pos_x, pos_y+1]) == -1) {
+				gameStateArray[pos_x][pos_y+1] *= 2;
+				gameStateArray[pos_x][pos_y] = 0;
+				flagArray.push([pos_x, pos_y+1]);
+			}	
+		}else{
+			break;
+		}
+		pos_y = pos_y+1;
+	}
+	return gameStateArray;
+}
+
+
+//Move the tile at a given position down depending on the states of spaces below it:
+//f{moveDown}:
+function moveUp(gameStateArray, position){
+	var pos_x = position[0];
+	var pos_y = position[1];
+	var flagArray = [];
+	for (var i = (position[0] + 1); i >= 0; --i) {
+		if (gameStateArray[pos_x+1][pos_y] == 0) {
+			gameStateArray[i][pos_y] = gameStateArray[pos_x][pos_y];
+			gameStateArray[pos_x][pos_y] = 0;
+		} else if (gameStateArray[pos_x+1][pos_y] == gameStateArray[pos_x][pos_y]) {
+			if (flagArray.indexOf([pos_x+1, pos_y]) == -1) {
+				gameStateArray[pos_x+1][pos_y] *= 2;
+				gameStateArray[pos_x][pos_y] = 0;
+				flagArray.push([pos_x+1, pos_y]);
+			}	
+		}else{
+			break;
+		}
+		pos_x = pos_x+1;
+	}
+	return gameStateArray;
+}
+
+module.exports= {addTileToArena, initializeGameStates, gameState, detectFilledStates, moveLeft,moveRight, moveUp, moveDown };
 
