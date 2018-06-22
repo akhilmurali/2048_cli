@@ -11,6 +11,7 @@ var highScore = 0;
 
 //This function initalizes the 2D array and initializes all the elements of the
 //game state array to zero.
+//f{initializeGameStates}
 function initializeGameStates() {
 	for (var i = 0; i < 4; i++) {
 		gameState[i] = new Array(4);
@@ -24,6 +25,7 @@ function initializeGameStates() {
 //PSEUDO CODE FOR THE FUNCTION:
 //1.PUSH ALL THE POSITIONS WHERE VALUE OF GAME-STATES IS ZERO INTO AN ARRAY
 //2.RANDOMLY SELECT AN INDEX OF THIS ARRAY AND POPULATE IT WITH THE VALUE{2} 
+//f{addTileToArena}
 function addTileToArena() {
 	var emptyPositionsArray = [];
 	for (var i = 0; i < 4; i++) {
@@ -44,6 +46,18 @@ function addTileToArena() {
 	}
 }
 
+//Function to detect filled states in the gameState array;
+//f{detectFilledStates}
+function detectFilledStates(gameStateArray){
+	var positionArray = [];
+	for(var i = 0; i< 4; i++){
+		for(j = 0; j<4;j++){
+			if(gameStateArray[i][j] != 0){
+				positionArray.push([i,j]);
+			}
+		}
+	}
+	return positionArray;
+}
 
-
-module.exports = {addTileToArena, initializeGameStates, gameState}
+module.exports = { addTileToArena, initializeGameStates, gameState }
