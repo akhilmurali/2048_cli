@@ -1,25 +1,49 @@
 var gameState = [];
 var highScore = 0;
+
 //Initialize the game:
-(function (){
+//It further calls other two functions for the same: f{initializeGameStates} and f{addTileToArena}:
+(function () {
 	initializeGameStates();
 	addTileToArena();
 	addTileToArena();
 })();
 
-
-function initializeGameStates(){
-	for(var i = 0; i < 4; i++){
-	gameState[i] = new Array(4);
-	for(var j = 0; j < 4; j++){
-		gameState[i][j] = 0;
+//This function initalizes the 2D array and initializes all the elements of the
+//game state array to zero.
+function initializeGameStates() {
+	for (var i = 0; i < 4; i++) {
+		gameState[i] = new Array(4);
+		for (var j = 0; j < 4; j++) {
+			gameState[i][j] = 0;
+		}
 	}
 }
 
-//The function add a block to a random space in the arena:
-function addTileToArena(){
-	var randomPosition_x = Math.floor(Math.random() * 3);
-	var randomPosition_y = Math.floor(Math.random() * 3);
-	gameState[randomPosition_x][randomPosition_y] = 2;
+//Detect empty states and initialize a state to the value {2} at empty spaces:
+//PSEUDO CODE FOR THE FUNCTION:
+//1.PUSH ALL THE POSITIONS WHERE VALUE OF GAME-STATES IS ZERO INTO AN ARRAY
+//2.RANDOMLY SELECT AN INDEX OF THIS ARRAY AND POPULATE IT WITH THE VALUE{2} 
+function addTileToArena() {
+	var emptyPositionsArray = [];
+	for (var i = 0; i < 4; i++) {
+		for (var j = 0; j < 4; j++) {
+			if (gameState[i][j] == 0) {
+				emptyPositionsArray.push([i, j]);
+			}
+		}
+	}
+	if (emptyPositionsArray.length == 0) {
+		Return - 1;
+	} else {
+		var randomPosition = Math.floor((Math.random() * emptyPositionsArray.length));
+		var randomPosition_x = emptyPositionsArray[randomPosition][0];
+		var randomPosition_y = emptyPositionsArray[randomPosition][1];
+		gameState[randomPosition_x][randomPosition_y] = 2;
+		return 1;
+	}
 }
 
+
+
+module.exports = {addTileToArena, initializeGameStates, gameState}
