@@ -91,7 +91,6 @@ function alterStates(gameStateArray, key) {
 //Move the tile at a given position to its left position depending on the states to its left:
 //f{moveLeft}:
 function moveLeft(gameStateArray, position) {
-	console.log(gameStateArray);
 	var pos_x = position[0];
 	var pos_y = position[1];
 	var flagArray = [];
@@ -109,6 +108,31 @@ function moveLeft(gameStateArray, position) {
 			break;
 		}
 		pos_y = pos_y-1;
+	}
+	return gameStateArray;
+}
+
+
+//Move the tile at a given position up depending on the states of spaces above it:
+//f{moveUp}:
+function moveUp(gameStateArray, position){
+	var pos_x = position[0];
+	var pos_y = position[1];
+	var flagArray = [];
+	for (var i = (position[0] - 1); i >= 0; --i) {
+		if (gameStateArray[pos_x-1][pos_y] == 0) {
+			gameStateArray[i][pos_y] = gameStateArray[pos_x][pos_y];
+			gameStateArray[pos_x][pos_y] = 0;
+		} else if (gameStateArray[pos_x-1][pos_y] == gameStateArray[pos_x][pos_y]) {
+			if (flagArray.indexOf([pos_x-1, pos_y]) == -1) {
+				gameStateArray[pos_x-1][pos_y] *= 2;
+				gameStateArray[pos_x][pos_y] = 0;
+				flagArray.push([pos_x-1, pos_y]);
+			}	
+		}else{
+			break;
+		}
+		pos_x = pos_x-1;
 	}
 	return gameStateArray;
 }
