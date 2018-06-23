@@ -16,7 +16,7 @@ function initializeGameStates(gameState) {
 //1.PUSH ALL THE POSITIONS WHERE VALUE OF GAME-STATES IS ZERO INTO AN ARRAY
 //2.RANDOMLY SELECT AN INDEX OF THIS ARRAY AND POPULATE IT WITH THE VALUE{2} 
 //f{addTileToArena}
-function addTileToArena(gameState) {
+function addTileToArena(gameState, emptyPositionArray) {
 	var randomPosition = Math.floor((Math.random() * emptyPositionsArray.length));
 	var randomPosition_x = emptyPositionsArray[randomPosition][0];
 	var randomPosition_y = emptyPositionsArray[randomPosition][1];
