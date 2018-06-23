@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/akhilmurali/2048_cli/issues"
   },
-  "homepage": "https://github.com/akhilmurali/2048_cli#readme"
+  "homepage": "https://github.com/akhilmurali/2048_cli#readme",
+  "dependencies": {
+    "keypress": "^0.2.1"
+  }
 }
