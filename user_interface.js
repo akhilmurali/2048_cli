@@ -1,13 +1,10 @@
 const gameLogic = require('./gamelogic');
 var keypress = require('keypress');  //Acquire keypress package
-var gameState = [];
-
 keypress(process.stdin);  //Make process.stdin emit keypress events:
-
+var gameState = [];
 gameState = initializeGameStates(gameState);
 
-
-function printGrid(gameState) {
+function printGameState(gameState) {
     var resultGrid = '';
     gameState.forEach(array => {
         array.forEach(element => {
