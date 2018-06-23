@@ -161,7 +161,7 @@ function moveDown(gameStateArray, position) {
 	var pos_x = position[0];
 	var pos_y = position[1];
 	var flagArray = [];
-	for (var i = (position[0] + 1); i >= 0; --i) {
+	for (var i = (position[0] + 1); i <= 3; ++i) {
 		if (gameStateArray[pos_x + 1][pos_y] == 0) {
 			gameStateArray[i][pos_y] = gameStateArray[pos_x][pos_y];
 			gameStateArray[pos_x][pos_y] = 0;
@@ -186,9 +186,9 @@ function printGameState(gameState) {
     gameState.forEach(array => {
         array.forEach(element => {
             if(element != 0){
-                resultGrid += " | " + element;
+                resultGrid += "  |  " + element;
             }else{
-                resultGrid += " | " + " ";
+                resultGrid += "  |  " + " ";
             }
         });
         resultGrid += " | "+ "\n"
@@ -200,6 +200,6 @@ function clearScreen(){
     console.log('\033[2J');
 }
 
-module.exports = { addTileToArena, initializeGameStates, printGameState,
+module.exports = { addTileToArena, initializeGameStates, printGameState,alterStates,
 	detectFilledStates, moveLeft, moveRight, moveUp, moveDown, getEmptyStates, clearScreen };
 
