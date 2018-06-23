@@ -16,7 +16,7 @@ function initializeGameStates(gameState) {
 //1.PUSH ALL THE POSITIONS WHERE VALUE OF GAME-STATES IS ZERO INTO AN ARRAY
 //2.RANDOMLY SELECT AN INDEX OF THIS ARRAY AND POPULATE IT WITH THE VALUE{2} 
 //f{addTileToArena}
-function addTileToArena(gameState, emptyPositionArray) {
+function addTileToArena(gameState, emptyPositionsArray) {
 	var randomPosition = Math.floor((Math.random() * emptyPositionsArray.length));
 	var randomPosition_x = emptyPositionsArray[randomPosition][0];
 	var randomPosition_y = emptyPositionsArray[randomPosition][1];
@@ -157,7 +157,7 @@ function moveRight(gameStateArray, position) {
 
 //Move the tile at a given position down depending on the states of spaces below it:
 //f{moveDown}:
-function moveUp(gameStateArray, position) {
+function moveDown(gameStateArray, position) {
 	var pos_x = position[0];
 	var pos_y = position[1];
 	var flagArray = [];
@@ -179,5 +179,5 @@ function moveUp(gameStateArray, position) {
 	return gameStateArray;
 }
 
-module.exports = { addTileToArena, initializeGameStates, gameState, detectFilledStates, moveLeft, moveRight, moveUp, moveDown };
+module.exports = { addTileToArena, initializeGameStates, detectFilledStates, moveLeft, moveRight, moveUp, moveDown, getEmptyStates };
 

@@ -1,14 +1,21 @@
 const gameLogic = require('./gamelogic');
 var keypress = require('keypress');  //Acquire keypress package
 keypress(process.stdin);  //Make process.stdin emit keypress events:
-var gameState = [];
-gameState = initializeGameStates(gameState);
+    var gameState = [];
+gameState = gameLogic.initializeGameStates(gameState);
+gameState = gameLogic.addTileToArena(gameState, gameLogic.getEmptyStates(gameState));
+gameState = gameLogic.addTileToArena(gameState, gameLogic.getEmptyStates(gameState));
+printGameState(gameState);
 
 function printGameState(gameState) {
     var resultGrid = '';
     gameState.forEach(array => {
         array.forEach(element => {
-            resultGrid += "| " + element;
+            if(element != 0){
+                resultGrid += " | " + element;
+            }else{
+                resultGrid += " | " + " ";
+            }
         });
         resultGrid += " |"+ "\n"
     });
