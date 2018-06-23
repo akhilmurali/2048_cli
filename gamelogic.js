@@ -179,5 +179,27 @@ function moveDown(gameStateArray, position) {
 	return gameStateArray;
 }
 
-module.exports = { addTileToArena, initializeGameStates, detectFilledStates, moveLeft, moveRight, moveUp, moveDown, getEmptyStates };
+//Function to print the gameState's Grid:gameGrid:
+//f{printGameState}
+function printGameState(gameState) {
+    var resultGrid = '';
+    gameState.forEach(array => {
+        array.forEach(element => {
+            if(element != 0){
+                resultGrid += " | " + element;
+            }else{
+                resultGrid += " | " + " ";
+            }
+        });
+        resultGrid += " | "+ "\n"
+    });
+    console.log(resultGrid)
+}
+
+function clearScreen(){
+    console.log('\033[2J');
+}
+
+module.exports = { addTileToArena, initializeGameStates, printGameState,
+	detectFilledStates, moveLeft, moveRight, moveUp, moveDown, getEmptyStates, clearScreen };
 
