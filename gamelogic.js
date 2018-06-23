@@ -16,7 +16,17 @@ function initializeGameStates(gameState) {
 //1.PUSH ALL THE POSITIONS WHERE VALUE OF GAME-STATES IS ZERO INTO AN ARRAY
 //2.RANDOMLY SELECT AN INDEX OF THIS ARRAY AND POPULATE IT WITH THE VALUE{2} 
 //f{addTileToArena}
-function addTileToArena() {
+function addTileToArena(gameState) {
+	var randomPosition = Math.floor((Math.random() * emptyPositionsArray.length));
+	var randomPosition_x = emptyPositionsArray[randomPosition][0];
+	var randomPosition_y = emptyPositionsArray[randomPosition][1];
+	gameState[randomPosition_x][randomPosition_y] = 2;
+	return gameState;
+}
+
+//Funtion tp return empty positions in a 2D array:
+//f{getEmptyPositions}
+function getEmptyStates(gameState) {
 	var emptyPositionsArray = [];
 	for (var i = 0; i < 4; i++) {
 		for (var j = 0; j < 4; j++) {
@@ -25,16 +35,9 @@ function addTileToArena() {
 			}
 		}
 	}
-	if (emptyPositionsArray.length == 0) {
-		return false;
-	} else {
-		var randomPosition = Math.floor((Math.random() * emptyPositionsArray.length));
-		var randomPosition_x = emptyPositionsArray[randomPosition][0];
-		var randomPosition_y = emptyPositionsArray[randomPosition][1];
-		gameState[randomPosition_x][randomPosition_y] = 2;
-		return true;
-	}
+	return emptyPositionsArray;
 }
+
 
 //Function to detect filled states in the gameState array:
 //f{detectFilledStates}
@@ -84,19 +87,19 @@ function moveLeft(gameStateArray, position) {
 	var pos_y = position[1];
 	var flagArray = [];
 	for (var i = (position[1] - 1); i >= 0; --i) {
-		if (gameStateArray[pos_x][pos_y-1] == 0) {
+		if (gameStateArray[pos_x][pos_y - 1] == 0) {
 			gameStateArray[pos_x][i] = gameStateArray[pos_x][pos_y];
 			gameStateArray[pos_x][pos_y] = 0;
-		} else if (gameStateArray[pos_x][pos_y-1] == gameStateArray[pos_x][pos_y]) {
-			if (flagArray.indexOf([pos_x, pos_y-1]) == -1) {
-				gameStateArray[pos_x][pos_y-1] *= 2;
+		} else if (gameStateArray[pos_x][pos_y - 1] == gameStateArray[pos_x][pos_y]) {
+			if (flagArray.indexOf([pos_x, pos_y - 1]) == -1) {
+				gameStateArray[pos_x][pos_y - 1] *= 2;
 				gameStateArray[pos_x][pos_y] = 0;
-				flagArray.push([pos_x, pos_y-1]);
-			}	
-		}else{
+				flagArray.push([pos_x, pos_y - 1]);
+			}
+		} else {
 			break;
 		}
-		pos_y = pos_y-1;
+		pos_y = pos_y - 1;
 	}
 	return gameStateArray;
 }
@@ -104,24 +107,24 @@ function moveLeft(gameStateArray, position) {
 
 //Move the tile at a given position up depending on the states of spaces above it:
 //f{moveUp}:
-function moveUp(gameStateArray, position){
+function moveUp(gameStateArray, position) {
 	var pos_x = position[0];
 	var pos_y = position[1];
 	var flagArray = [];
 	for (var i = (position[0] - 1); i >= 0; --i) {
-		if (gameStateArray[pos_x-1][pos_y] == 0) {
+		if (gameStateArray[pos_x - 1][pos_y] == 0) {
 			gameStateArray[i][pos_y] = gameStateArray[pos_x][pos_y];
 			gameStateArray[pos_x][pos_y] = 0;
-		} else if (gameStateArray[pos_x-1][pos_y] == gameStateArray[pos_x][pos_y]) {
-			if (flagArray.indexOf([pos_x-1, pos_y]) == -1) {
-				gameStateArray[pos_x-1][pos_y] *= 2;
+		} else if (gameStateArray[pos_x - 1][pos_y] == gameStateArray[pos_x][pos_y]) {
+			if (flagArray.indexOf([pos_x - 1, pos_y]) == -1) {
+				gameStateArray[pos_x - 1][pos_y] *= 2;
 				gameStateArray[pos_x][pos_y] = 0;
-				flagArray.push([pos_x-1, pos_y]);
-			}	
-		}else{
+				flagArray.push([pos_x - 1, pos_y]);
+			}
+		} else {
 			break;
 		}
-		pos_x = pos_x-1;
+		pos_x = pos_x - 1;
 	}
 	return gameStateArray;
 }
@@ -134,19 +137,19 @@ function moveRight(gameStateArray, position) {
 	var pos_y = position[1];
 	var flagArray = [];
 	for (var i = (position[1] + 1); i < 4; ++i) {
-		if (gameStateArray[pos_x][pos_y+1] == 0) {
+		if (gameStateArray[pos_x][pos_y + 1] == 0) {
 			gameStateArray[pos_x][i] = gameStateArray[pos_x][pos_y];
 			gameStateArray[pos_x][pos_y] = 0;
-		} else if (gameStateArray[pos_x][pos_y+1] == gameStateArray[pos_x][pos_y]) {
-			if (flagArray.indexOf([pos_x, pos_y+1]) == -1) {
-				gameStateArray[pos_x][pos_y+1] *= 2;
+		} else if (gameStateArray[pos_x][pos_y + 1] == gameStateArray[pos_x][pos_y]) {
+			if (flagArray.indexOf([pos_x, pos_y + 1]) == -1) {
+				gameStateArray[pos_x][pos_y + 1] *= 2;
 				gameStateArray[pos_x][pos_y] = 0;
-				flagArray.push([pos_x, pos_y+1]);
-			}	
-		}else{
+				flagArray.push([pos_x, pos_y + 1]);
+			}
+		} else {
 			break;
 		}
-		pos_y = pos_y+1;
+		pos_y = pos_y + 1;
 	}
 	return gameStateArray;
 }
@@ -154,27 +157,27 @@ function moveRight(gameStateArray, position) {
 
 //Move the tile at a given position down depending on the states of spaces below it:
 //f{moveDown}:
-function moveUp(gameStateArray, position){
+function moveUp(gameStateArray, position) {
 	var pos_x = position[0];
 	var pos_y = position[1];
 	var flagArray = [];
 	for (var i = (position[0] + 1); i >= 0; --i) {
-		if (gameStateArray[pos_x+1][pos_y] == 0) {
+		if (gameStateArray[pos_x + 1][pos_y] == 0) {
 			gameStateArray[i][pos_y] = gameStateArray[pos_x][pos_y];
 			gameStateArray[pos_x][pos_y] = 0;
-		} else if (gameStateArray[pos_x+1][pos_y] == gameStateArray[pos_x][pos_y]) {
-			if (flagArray.indexOf([pos_x+1, pos_y]) == -1) {
-				gameStateArray[pos_x+1][pos_y] *= 2;
+		} else if (gameStateArray[pos_x + 1][pos_y] == gameStateArray[pos_x][pos_y]) {
+			if (flagArray.indexOf([pos_x + 1, pos_y]) == -1) {
+				gameStateArray[pos_x + 1][pos_y] *= 2;
 				gameStateArray[pos_x][pos_y] = 0;
-				flagArray.push([pos_x+1, pos_y]);
-			}	
-		}else{
+				flagArray.push([pos_x + 1, pos_y]);
+			}
+		} else {
 			break;
 		}
-		pos_x = pos_x+1;
+		pos_x = pos_x + 1;
 	}
 	return gameStateArray;
 }
 
-module.exports= {addTileToArena, initializeGameStates, gameState, detectFilledStates, moveLeft,moveRight, moveUp, moveDown };
+module.exports = { addTileToArena, initializeGameStates, gameState, detectFilledStates, moveLeft, moveRight, moveUp, moveDown };
 
