@@ -15,6 +15,10 @@ function printGameState(gameState) {
     console.log(resultGrid)
 }
 
+function clearScreen(){
+    console.log('\033[2J');
+}
+
 //Process to take Keyboard inputs
 process.stdin.on('keypress', function (ch, key) {
     console.log(key.name);
