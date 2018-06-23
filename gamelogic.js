@@ -1,25 +1,14 @@
-var gameState = [];
-var highScore = 0;
-
-//Initialize the game:
-//It further calls other two functions for the same: 
-//f{initializeGameStates} and f{addTileToArena}:
-(function () {
-	initializeGameStates();
-	addTileToArena();
-	addTileToArena();
-})();
-
 //This function initalizes the 2D array and initializes all the elements of the
 //game state array to zero.
 //f{initializeGameStates}
-function initializeGameStates() {
+function initializeGameStates(gameState) {
 	for (var i = 0; i < 4; i++) {
 		gameState[i] = new Array(4);
 		for (var j = 0; j < 4; j++) {
 			gameState[i][j] = 0;
 		}
 	}
+	return gameState;
 }
 
 //Detect empty states and initialize a state to the value {2} at empty spaces:
