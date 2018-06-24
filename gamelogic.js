@@ -43,7 +43,7 @@ function getEmptyStates(gameState) {
 }
 
 
-//Function to detect filled states in the gameState array:
+//Function to get positions of filled states in the gameState array:
 //f{detectFilledStates}
 function detectFilledStates(gameStateArray,direction) {
 	var positionArray = [];
