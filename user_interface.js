@@ -1,5 +1,7 @@
 const gameLogic = require('./gamelogic');
 var keypress = require('keypress');  //Acquire keypress package
+var clear = require('clear');
+clear();
 keypress(process.stdin);  //Make process.stdin emit keypress events:
 var gameState = [];
 gameState = gameLogic.initializeGameStates(gameState);
@@ -8,10 +10,10 @@ gameState = gameLogic.addTileToArena(gameState, gameLogic.getEmptyStates(gameSta
 gameLogic.printGameState(gameState);
 
 //Process to take Keyboard inputs:
-process.stdin.on('keypress', function (ch, key) {
+process.stdin.on('keypress', function (ch,key) {
     if (key.name == 'up' || key.name == 'down' || key.name == 'right' || key.name == 'left') {
         gameState = gameLogic.alterStates(gameState, key.name);
-        gameLogic.clearScreen();
+        clear();
         gameLogic.addTileToArena(gameState, gameLogic.getEmptyStates(gameState));
         gameLogic.printGameState(gameState);
     }

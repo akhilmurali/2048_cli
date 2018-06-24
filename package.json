@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/akhilmurali/2048_cli#readme",
   "dependencies": {
+    "clear": "^0.1.0",
     "keypress": "^0.2.1"
   }
 }
