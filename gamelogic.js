@@ -240,8 +240,44 @@ function printGameState(gameState) {
 	console.log(resultGrid)
 }
 
+//Function to check gameResult
+//f{gameResult}
+function gameResult(gameStateArray){
+	//Check if user has won:
+	var gameLost = true;
+	gameStateArray.forEach(array => {
+		array.forEach(unit => {
+			if(unit == 2048){
+				console.log("You Win!");
+				process.stdin.pause();
+				if(unit == 0){
+					gameLost = false;
+				}
+				if(array.indexOf(unit) != 3){
+					var rightElement = array(array.indexOf(unit) + 1);
+					if(rightElement == unit){
+						gameLost = false;
+					}
+				}
+				if(gameStateArray.indexOf(array)!=3){
+					var bottomElement = gameStateArray[gameStateArray.indexOf(unit)+1];
+					if(bottomElement == unit){
+						gameLost = false;
+					}
+				}
+			}
+		});
+	});
+
+	if(!gameLost){
+		process.stdin.pause();
+		console.log("You Lost!");
+	}
+}
+
+
 module.exports = {
 	addTileToArena, initializeGameStates, printGameState, alterStates,
-	detectFilledStates, moveLeft, moveRight, moveUp, moveDown, getEmptyStates, clearScreen, flagArray
+	detectFilledStates, moveLeft, moveRight, moveUp, moveDown, getEmptyStates, flagArray, gameResult
 };
 
