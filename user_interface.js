@@ -16,6 +16,7 @@ process.stdin.on('keypress', function (ch,key) {
         clear();
         gameLogic.addTileToArena(gameState, gameLogic.getEmptyStates(gameState));
         gameLogic.printGameState(gameState);
+        console.log(gameLogic.flagArray);
     }
     if (key && key.ctrl && key.name == 'c') {     //This logic is to quit the operations from cmd - press - ctrl+C{
         process.stdin.pause();

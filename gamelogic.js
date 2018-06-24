@@ -1,3 +1,4 @@
+var flagArray = [];
 //This function initalizes the 2D array and initializes all the elements of the
 //game state array to zero.
 //f{initializeGameStates}
@@ -17,7 +18,7 @@ function initializeGameStates(gameState) {
 //2.RANDOMLY SELECT AN INDEX OF THIS ARRAY AND POPULATE IT WITH THE VALUE{2} 
 //f{addTileToArena}
 function addTileToArena(gameState, emptyPositionsArray) {
-	if(emptyPositionsArray.length == 0){
+	if (emptyPositionsArray.length == 0) {
 		//check for game over:
 		return gameState;
 	}
@@ -45,9 +46,9 @@ function getEmptyStates(gameState) {
 
 //Function to get positions of filled states in the gameState array:
 //f{detectFilledStates}
-function detectFilledStates(gameStateArray,direction) {
+function detectFilledStates(gameStateArray, direction) {
 	var positionArray = [];
-	if(direction == 'down'){
+	if (direction == 'down') {
 		for (var i = 3; i >= 0; i--) {
 			for (j = 3; j >= 0; j--) {
 				if (gameStateArray[j][i] != 0) {
@@ -55,7 +56,7 @@ function detectFilledStates(gameStateArray,direction) {
 				}
 			}
 		}
-	}else if(direction == 'right'){
+	} else if (direction == 'right') {
 		for (var i = 0; i < 4; i++) {
 			for (j = 3; j >= 0; j--) {
 				if (gameStateArray[i][j] != 0) {
@@ -63,7 +64,7 @@ function detectFilledStates(gameStateArray,direction) {
 				}
 			}
 		}
-	}else if(direction == 'left'){
+	} else if (direction == 'left') {
 		for (var i = 0; i < 4; i++) {
 			for (j = 0; j < 4; j++) {
 				if (gameStateArray[i][j] != 0) {
@@ -71,7 +72,7 @@ function detectFilledStates(gameStateArray,direction) {
 				}
 			}
 		}
-	}else{
+	} else {
 		for (var i = 0; i <= 3; i++) {
 			for (j = 0; j <= 3; j++) {
 				if (gameStateArray[j][i] != 0) {
@@ -80,14 +81,14 @@ function detectFilledStates(gameStateArray,direction) {
 			}
 		}
 	}
-	
+
 	return positionArray;
 }
 
 //Function to alter states in gameState array:
 //f{alterStates}
 function alterStates(gameStateArray, key) {
-	var positionArray = detectFilledStates(gameStateArray,key);
+	var positionArray = detectFilledStates(gameStateArray, key);
 	var position_x = positionArray[0];
 	var position_y = positionArray[1];
 	positionArray.forEach(function (position) {
@@ -116,15 +117,19 @@ function alterStates(gameStateArray, key) {
 function moveLeft(gameStateArray, position) {
 	var pos_x = position[0];
 	var pos_y = position[1];
-	var flagArray = [];
+	if (flagArray[0] != undefined) {
+		if (flagArray[0][0] != pos_x) {
+			flagArray = [];
+		}
+	}
 	for (var i = (pos_y - 1); i >= 0; --i) {
 		if (gameStateArray[pos_x][i] == 0) {
-			gameStateArray[pos_x][i] = gameStateArray[pos_x][i+1];
-			gameStateArray[pos_x][i+1] = 0;
-		} else if (gameStateArray[pos_x][i] == gameStateArray[pos_x][i+1]) {
+			gameStateArray[pos_x][i] = gameStateArray[pos_x][i + 1];
+			gameStateArray[pos_x][i + 1] = 0;
+		} else if (gameStateArray[pos_x][i] == gameStateArray[pos_x][i + 1]) {
 			if (flagArray.indexOf([pos_x, i]) == -1) {
 				gameStateArray[pos_x][i] *= 2;
-				gameStateArray[pos_x][i+1] = 0;
+				gameStateArray[pos_x][i + 1] = 0;
 				flagArray.push([pos_x, i]);
 			}
 		} else {
@@ -140,7 +145,9 @@ function moveLeft(gameStateArray, position) {
 function moveUp(gameStateArray, position) {
 	var pos_x = position[0];
 	var pos_y = position[1];
-	var flagArray = [];
+	if (flagArray[0] != undefined && flagArray[0][1] != pos_y) {
+		flagArray = [];
+	}
 	for (var i = (position[0] - 1); i >= 0; --i) {
 		if (gameStateArray[pos_x - 1][pos_y] == 0) {
 			gameStateArray[i][pos_y] = gameStateArray[pos_x][pos_y];
@@ -165,7 +172,9 @@ function moveUp(gameStateArray, position) {
 function moveRight(gameStateArray, position) {
 	var pos_x = position[0];
 	var pos_y = position[1];
-	var flagArray = [];
+	if (flagArray[0] != undefined && flagArray[0][0] != pos_x) {
+		flagArray = [];
+	}
 	for (var i = (position[1] + 1); i < 4; ++i) {
 		if (gameStateArray[pos_x][pos_y + 1] == 0) {
 			gameStateArray[pos_x][i] = gameStateArray[pos_x][pos_y];
@@ -190,7 +199,9 @@ function moveRight(gameStateArray, position) {
 function moveDown(gameStateArray, position) {
 	var pos_x = position[0];
 	var pos_y = position[1];
-	var flagArray = [];
+	if (flagArray[0] != undefined && flagArray[0][1] != pos_y) {
+		flagArray = [];
+	}
 	for (var i = (position[0] + 1); i <= 3; ++i) {
 		if (gameStateArray[pos_x + 1][pos_y] == 0) {
 			gameStateArray[i][pos_y] = gameStateArray[pos_x][pos_y];
@@ -200,6 +211,9 @@ function moveDown(gameStateArray, position) {
 				gameStateArray[pos_x + 1][pos_y] *= 2;
 				gameStateArray[pos_x][pos_y] = 0;
 				flagArray.push([pos_x + 1, pos_y]);
+				if(gameStateArray[pos_x+1][pos_y] == 2048){
+					console.log("You Win!");
+				}
 			}
 		} else {
 			break;
@@ -212,24 +226,26 @@ function moveDown(gameStateArray, position) {
 //Function to print the gameState's Grid:gameGrid:
 //f{printGameState}
 function printGameState(gameState) {
-    var resultGrid = '';
-    gameState.forEach(array => {
-        array.forEach(element => {
-            if(element != 0){
-                resultGrid += "  |  " + element;
-            }else{
-                resultGrid += "  |  " + " ";
-            }
-        });
-        resultGrid += " | "+ "\n"
-    });
-    console.log(resultGrid)
+	var resultGrid = '';
+	gameState.forEach(array => {
+		array.forEach(element => {
+			if (element != 0) {
+				resultGrid += "  |  " + element;
+			} else {
+				resultGrid += "  |  " + " ";
+			}
+		});
+		resultGrid += " | " + "\n"
+	});
+	console.log(resultGrid)
 }
 
-function clearScreen(){
-    console.log('\033[2J');
+function clearScreen() {
+	console.log('\033[2J');
 }
 
-module.exports = { addTileToArena, initializeGameStates, printGameState,alterStates,
-	detectFilledStates, moveLeft, moveRight, moveUp, moveDown, getEmptyStates, clearScreen };
+module.exports = {
+	addTileToArena, initializeGameStates, printGameState, alterStates,
+	detectFilledStates, moveLeft, moveRight, moveUp, moveDown, getEmptyStates, clearScreen, flagArray
+};
 
