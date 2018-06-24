@@ -240,10 +240,6 @@ function printGameState(gameState) {
 	console.log(resultGrid)
 }
 
-function clearScreen() {
-	console.log('\033[2J');
-}
-
 module.exports = {
 	addTileToArena, initializeGameStates, printGameState, alterStates,
 	detectFilledStates, moveLeft, moveRight, moveUp, moveDown, getEmptyStates, clearScreen, flagArray
