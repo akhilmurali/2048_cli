@@ -49,9 +49,9 @@ function detectFilledStates(gameStateArray,direction) {
 	var positionArray = [];
 	if(direction == 'down'){
 		for (var i = 3; i >= 0; i--) {
-			for (j = 0; j < 4; j++) {
-				if (gameStateArray[i][j] != 0) {
-					positionArray.push([i, j]);
+			for (j = 3; j >= 0; j--) {
+				if (gameStateArray[j][i] != 0) {
+					positionArray.push([j, i]);
 				}
 			}
 		}
@@ -63,11 +63,19 @@ function detectFilledStates(gameStateArray,direction) {
 				}
 			}
 		}
-	}else{
+	}else if(direction == 'left'){
 		for (var i = 0; i < 4; i++) {
 			for (j = 0; j < 4; j++) {
 				if (gameStateArray[i][j] != 0) {
 					positionArray.push([i, j]);
+				}
+			}
+		}
+	}else{
+		for (var i = 0; i <= 3; i++) {
+			for (j = 0; j <= 3; j++) {
+				if (gameStateArray[j][i] != 0) {
+					positionArray.push([j, i]);
 				}
 			}
 		}
