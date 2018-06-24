@@ -17,7 +17,7 @@ function initializeGameStates(gameState) {
 //2.RANDOMLY SELECT AN INDEX OF THIS ARRAY AND POPULATE IT WITH THE VALUE{2} 
 //f{addTileToArena}
 function addTileToArena(gameState, emptyPositionsArray) {
-	if(emptyPositionsArray.length != 0){
+	if(emptyPositionsArray.length == 0){
 		//check for game over:
 		return gameState;
 	}
@@ -45,22 +45,41 @@ function getEmptyStates(gameState) {
 
 //Function to detect filled states in the gameState array:
 //f{detectFilledStates}
-function detectFilledStates(gameStateArray) {
+function detectFilledStates(gameStateArray,direction) {
 	var positionArray = [];
-	for (var i = 0; i < 4; i++) {
-		for (j = 0; j < 4; j++) {
-			if (gameStateArray[i][j] != 0) {
-				positionArray.push([i, j]);
+	if(direction == 'down'){
+		for (var i = 3; i >= 0; i--) {
+			for (j = 0; j < 4; j++) {
+				if (gameStateArray[i][j] != 0) {
+					positionArray.push([i, j]);
+				}
+			}
+		}
+	}else if(direction == 'right'){
+		for (var i = 0; i < 4; i++) {
+			for (j = 3; j >= 0; j--) {
+				if (gameStateArray[i][j] != 0) {
+					positionArray.push([i, j]);
+				}
+			}
+		}
+	}else{
+		for (var i = 0; i < 4; i++) {
+			for (j = 0; j < 4; j++) {
+				if (gameStateArray[i][j] != 0) {
+					positionArray.push([i, j]);
+				}
 			}
 		}
 	}
+	
 	return positionArray;
 }
 
 //Function to alter states in gameState array:
 //f{alterStates}
 function alterStates(gameStateArray, key) {
-	var positionArray = detectFilledStates(gameStateArray);
+	var positionArray = detectFilledStates(gameStateArray,key);
 	var position_x = positionArray[0];
 	var position_y = positionArray[1];
 	positionArray.forEach(function (position) {
